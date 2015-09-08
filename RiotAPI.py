@@ -1,5 +1,6 @@
 import Constants as Consts
 import requests
+import logging
 
 
 class RiotAPI(object):
@@ -22,7 +23,9 @@ class RiotAPI(object):
             ),
             params=args
         )
-        print response.url
+
+        logging.warning(response.url)
+
         if response.status_code == 200:
             return response.json()
         else:
