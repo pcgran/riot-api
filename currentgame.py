@@ -12,6 +12,13 @@ def get_platform_id(region):
         return 'KR'
 
 
+def get_champion_name(champions, champion_id):
+    # when we loop through a dictionary, if we don't use key, value, it only takes the key as a string!!!
+    for key, value in champions['data'].iteritems():
+        if value['id'] == champion_id:
+            return value['name']
+
+
 def main():
     if len(sys.argv) == 3:
         summoner_name = sys.argv[1].lower()
@@ -20,6 +27,8 @@ def main():
 
         api = RiotAPI('key', region)
 
+        champions = api.get_all_champions()
+
         r = api.get_current_game(summoner_name, platform_id)
 
         if r != 'error':
@@ -27,7 +36,7 @@ def main():
             players = r['participants']
 
             for i in range(0, len(players)):
-                print players[i]['summonerName'] + ': ' + api.get_champion_name(players[i]['championId'])
+                print players[i]['summonerName'] + ': ' + get_champion_name(champions, players[i]['championId'])
 
         else:
             print 'This summoner is not in a game'

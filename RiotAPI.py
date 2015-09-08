@@ -22,7 +22,7 @@ class RiotAPI(object):
             ),
             params=args
         )
-        # print response.url
+        print response.url
         if response.status_code == 200:
             return response.json()
         else:
@@ -70,13 +70,14 @@ class RiotAPI(object):
         return self._request(api_url)
 
     # Returns a champion name from its ID
-    def get_champion_name(self, champ_id):
+    def get_all_champions(self):
         api_url = Consts.URL['lol_static_data'].format(
             region=self.region,
             version=Consts.API_VERSIONS['lol_static_data']
         )
 
         response = self._request(api_url)
-        return response['name']
 
-    # TODO: capture error codes
+        return response
+
+        # TODO: capture error codes
