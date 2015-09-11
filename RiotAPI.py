@@ -31,6 +31,26 @@ class RiotAPI(object):
         else:
             return 'error'
 
+    def _global_request(self, api_url, params={}):
+        args = {'api_key': self.api_key}
+        for key, value in params.items():
+            if key not in args:
+                args[key] = value
+
+        response = requests.get(
+            Consts.URL['global_base'].format(
+                url=api_url
+            ),
+            params=args
+        )
+
+        logging.warning(response.url)
+
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return 'error'
+
     def get_summoner_by_name(self, name):
         api_url = Consts.URL['summoner_by_name'].format(
             region=self.region,
@@ -79,7 +99,7 @@ class RiotAPI(object):
             version=Consts.API_VERSIONS['lol_static_data']
         )
 
-        response = self._request(api_url)
+        response = self._global_request(api_url)
 
         return response
 
