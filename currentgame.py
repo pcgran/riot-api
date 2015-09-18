@@ -45,11 +45,9 @@ def main():
 
             summoners_info = api.get_summoners_info(game['participants'])
 
-            players = game['participants']
-
-            for i in range(0, len(players)):
-                print players[i]['summonerName'] + ' (' + get_champion_name(champions, players[i][
-                    'championId']) + '): ' + get_summoner_league(summoners_info[str(players[i]['summonerId'])])
+            for player in game['participants']:
+                print player['summonerName'] + ' (' + get_champion_name(champions, player[
+                    'championId']) + '): ' + get_summoner_league(summoners_info[str(player['summonerId'])])
 
         else:
             print 'This summoner is not in game'
