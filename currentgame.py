@@ -52,7 +52,7 @@ def main():
                     'championId']) + '): ' + get_summoner_league(summoners_info[str(players[i]['summonerId'])])
 
         else:
-            print 'This summoner is not ingame'
+            print 'This summoner is not in game'
 
     else:
         print 'Invalid syntax'
