@@ -103,4 +103,19 @@ class RiotAPI(object):
 
         return response
 
-        # TODO: capture error codes
+    # returns the leagues info of all the participants
+    def get_summoners_info(self, participants):
+
+        summoner_ids = ''
+        for element in participants:
+            summoner_ids += str(element['summonerId']) + ','
+
+        summoner_ids = summoner_ids.strip(',')
+
+        api_url = Consts.URL['league_info'].format(
+            region=self.region,
+            version=Consts.API_VERSIONS['leagues'],
+            summoner_ids=summoner_ids
+        )
+
+        return self._request(api_url)
